@@ -1,0 +1,70 @@
+﻿@using BelBank.ViewModels
+@*@model ProductsListViewModel*@
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+@model BelBank.Models.ProductList
+
+
+
+<h2>Каталог товаров</h2>
+
+<form method="get">
+    <div class="form-inline form-group">
+        <label class="control-label">Имя: </label>
+        <input name="name" class="form-control" />
+
+        <label class="control-label">Категория: </label>
+        @*<select id="id" name="id">
+                <option value="">Выберите категорию</option>
+                <option>Еда</option>
+                <option>Вода</option>
+                <option>Вкусности</option>
+
+            </select>*@
+        @*<select name="id" asp-items="@new SelectList(Model.cttt) "></select>*@
+
+
+
+        <select name="id" asp-items="Model.Categ" class="form-control"></select>
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <td>Наименование продукта</td>
+        <td>Категория</td>
+        <td>Описание</td>
+        <td>Стоимость в рублях</td>
+        <td>Примечание</td>
+        <td>Примечание специальное</td>
+    </tr>
+
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <td>@item.Name</td>
+
+            <td>@item.Category.NameCategory</td>
+            <td>@item.Description</td>
+            <td>@item.Price.ToString("c")</td>
+            <td>@item.Note</td>
+            <td>@item.NoteSpec</td>
+            <td>
+                <a asp-controller="Product" asp-action="NewProductEdit" asp-route-id="@item.Id">Изменить</a>
+            </td>
+            <td>
+                <form method="post" asp-controller="Product" asp-action="Delete">
+                    <input type="hidden" name="Id" value="@item.Id" />
+                    <input type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<a asp-action="NewProductCreate">Добавить товар</a>

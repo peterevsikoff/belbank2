@@ -1,0 +1,65 @@
+﻿@using BelBank.ViewModels
+@model ProductsListViewModel
+@{
+    Layout = "_Layout";
+}
+
+@*<form method="get">
+    <div class="form-inline form-group">
+        <label class="control-label">Имя: </label>
+        <input name="name" class="form-control" />
+
+        <label class="control-label">Категория: </label>
+        <select name="id" asp-items="Model.getAllCatigories" class="form-control"></select>
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>*@
+
+
+
+
+
+
+
+
+
+
+<h1>@Model.currentCategory</h1>
+<table class="table">
+    <tr>
+        <td>Наименование продукта</td>
+        <td>Категория</td>
+        <td>Описание</td>
+        <td>Стоимость в рублях</td>
+        <td>Примечание</td>
+        <td>Примечание специальное</td>
+    </tr>
+    @{
+        foreach (var prod in Model.getAllProducts)
+        {
+            <tr>
+                <td>@prod.Name</td>
+                <td>@prod.Category.NameCategory</td>
+                
+                <td>@prod.Description</td>
+                <td>@prod.Price.ToString("c")</td>
+                <td>@prod.Note</td>
+                <td>@prod.NoteSpec</td>
+            </tr>
+        }
+    }
+</table>
+@*<table>
+    <tr>
+        <td>Категории</td>
+    </tr>
+    @{ foreach (var cat in Model.getAllCatigories)
+        { 
+        <tr>
+            <td>@cat.NameCategory</td>
+        </tr>
+        
+        }
+     }
+</table>*@
